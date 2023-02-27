@@ -1,0 +1,26 @@
+{
+  "name": "discord-role-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cac2107/Discord-Role-Bot.git"
+  },
+  "author": "cole1179",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cac2107/Discord-Role-Bot/issues"
+  },
+  "homepage": "https://github.com/cac2107/Discord-Role-Bot#readme",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0"
+  }
+}
