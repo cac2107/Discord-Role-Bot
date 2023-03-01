@@ -1,4 +1,4 @@
-const { EmbedBuilder, InteractionType } = require('discord.js');
+const { InteractionType } = require('discord.js');
 
 module.exports = async(client, interaction) => {
     if (!interaction.isChatInputCommand()) return;
