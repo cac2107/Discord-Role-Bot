@@ -16,7 +16,7 @@ const dataPath = path.join(__dirname, 'data');
 const dataFiles = fs.readdirSync(dataPath).filter(file => file.endsWith('.json'));
 if(dataFiles.length == 0){
 	console.log("No data files found... Creating now");
-	require('./dataFilesCreate');
+	require('./data/dataFilesCreate');
 }
 
 require('./deployAll');
