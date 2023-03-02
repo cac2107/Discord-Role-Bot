@@ -16,7 +16,7 @@ module.exports = {
         let groupName = interaction.options.getString('group_name');
 
         groups.guilds.forEach(guild => {
-            if(guild === guildId){ newGuild = false; }
+            if(Object.keys(guild)[0] == guildId){ newGuild = false; }
         });
         
         if(newGuild){
@@ -27,11 +27,9 @@ module.exports = {
 
         let groupJson = {};
         groupJson[groupName] = [];
-        console.log(groups);
+        
         groups.guilds.forEach(guild => {
-            if(guild === guildId){ 
-                groups.guilds.guild.push(groupJson);
-             }
+            if(Object.keys(guild)[0] == guildId){ guild[guildId].push(groupJson); }
         });
 
         fs.writeFileSync('./data/groups.json', JSON.stringify(groups, null, 2));
