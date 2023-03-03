@@ -34,7 +34,8 @@ module.exports = {
         let menuStr = `Role Menu: ${menuName}\nReact to Choose a Role!\n`;
         let emojis = [];
         Object.keys(menus.guilds[guildId][menuName]).forEach(async role => {
-            let emoji = menus.guilds[guildId][menuName][role].emoji;
+            let emoji = menus.guilds[guildId][menuName][role]['emoji'];
+            console.log(menus.guilds[guildId][menuName][role]);
             let desc = menus.guilds[guildId][menuName][role].desc;
             if(emoji == ""){
                 await interaction.reply({content: "Sorry, not all roles have been assigned an emoji", ephemeral: true});
@@ -49,6 +50,8 @@ module.exports = {
         channelId = channelId.replace("<#", "").replace(">", "");
         const channel = client.channels.cache.get(channelId);
         let message = await channel.send(menuStr);
+
+        console.log(emojis);
 
         emojis.forEach(async emoji => { await message.react(emoji); })
 

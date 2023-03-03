@@ -19,7 +19,7 @@ module.exports = async(und, reaction, user) => {
             emoji = reaction.message.guild.emojis.cache.find(em => em.name === strippedEmoji);
         }
 
-        menus.guilds[guildId][menuName][role].emoji = emoji;
+        menus.guilds[guildId][menuName][role]['emoji'] = emoji;
 
         fs.writeFileSync("./data/menus.json", JSON.stringify(menus, null, 2));
         
@@ -36,7 +36,7 @@ module.exports = async(und, reaction, user) => {
         let menu = menus.guilds[guildId][menuName];
         let chosenRole = "";
         Object.keys(menu).forEach(role => {
-            if(menu[role].emoji == emoji){ chosenRole = role; }
+            if(menu[role]['emoji'] == emoji){ chosenRole = role; }
         })
 
         await adminChannel.send(`<@${user.id}> chose ${emoji} for the role ${chosenRole}`);
