@@ -6,7 +6,7 @@ const fs = require('fs');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('rolemenucreate')
-		.setDescription('Create a role menu!')
+		.setDescription('Create a role menu! Note: Part of this command cannot be private messages. Please plan accordingly.')
         .addStringOption(option => 
             option.setName("name")
                 .setDescription("Name for React Menu")
