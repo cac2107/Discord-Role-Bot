@@ -26,22 +26,19 @@ module.exports = {
 		
         let foundGuild = false;
         let foundGroup = false;
-        console.log(groups);
-        groups.guilds.forEach(guild => {
-            if(Object.keys(guild)[0] == guildId){
-                foundGuild = true;
-                guild[guildId].forEach(groupName => {
-                    if(Object.keys(groupName) == name){
-                        foundGroup = true;
-                        groupName[name].push(role);
-                        fs.writeFileSync('./data/groups.json', JSON.stringify(groups, null, 2));
-                    }
-                });
-            }
-        });
 
-        if(!foundGuild){ await interaction.reply({content: "Sorry, your guild has not yet created any groups!", ephemeral: true}) }
-        else if (!foundGroup) { await interaction.reply({content: `Sorry, ${name} is not a group that has been created. Use /listgroups to view created groups`, ephemeral: true}); }
-        else { await interaction.reply({content: `Successfully added ${role} to group ${name}!`, ephemeral: true})}
+        if(groups.guilds[guildId] == undefined){
+            await interaction.reply({content: "Sorry, your guild has not yet created any groups!", ephemeral: true});
+            return;
+        }
+        if(groups.guilds[guildId][name] == undefined){
+            await interaction.reply({content: `Sorry, ${name} is not a group that has been created. Use /listgroups to view created groups`, ephemeral: true});
+            return;
+        }
+
+        groups.guilds[guildId][name].push(role);
+        fs.writeFileSync('./data/groups.json', JSON.stringify(groups, null, 2));
+
+        await interaction.reply({content: `Successfully added ${role} to group ${name}!`, ephemeral: true})
 	},
 };
