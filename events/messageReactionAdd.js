@@ -19,7 +19,7 @@ module.exports = async(und, reaction, user) => {
             emoji = reaction.message.guild.emojis.cache.find(em => em.name === strippedEmoji);
         }
 
-        menus.guilds[guildId][menuName][role] = emoji;
+        menus.guilds[guildId][menuName][role].emoji = emoji;
 
         fs.writeFileSync("./data/menus.json", JSON.stringify(menus, null, 2));
         

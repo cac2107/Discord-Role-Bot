@@ -34,7 +34,8 @@ module.exports = {
         roles = groups.guilds[guildId][groupName];
 
         let menu = {}
-        roles.forEach(role => { menu[role] = ""; })
+        roleObj = {"emoji": "", "desc": ""};
+        roles.forEach(role => { menu[role] = roleObj; })
 
         if(menus.guilds[guildId] == undefined){ menus.guilds[guildId] = {}; }
         menus.guilds[guildId][menuName] = menu;
