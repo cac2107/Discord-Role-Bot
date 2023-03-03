@@ -23,9 +23,6 @@ module.exports = {
             await interaction.reply("Sorry, that is not a role. Please use @Role format.");
             return;
         }
-		
-        let foundGuild = false;
-        let foundGroup = false;
 
         if(groups.guilds[guildId] == undefined){
             await interaction.reply({content: "Sorry, your guild has not yet created any groups!", ephemeral: true});
