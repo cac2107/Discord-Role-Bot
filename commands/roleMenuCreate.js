@@ -1,4 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
+const groups = require("../data/groups.json");
+const menus = require("../data/menus.json");
+const fs = require('fs');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -7,8 +10,56 @@ module.exports = {
         .addStringOption(option => 
             option.setName("name")
                 .setDescription("Name for React Menu")
-                .setRequired(true)),
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName("group")
+                .setDescription("Name of role group to use for React Menu")
+                .setRequired(true)
+        ),
 	async execute(interaction) {
-		await interaction.reply('This command is underdevelopment!');
+        let guildId = interaction.guild.id;
+        let groupName = interaction.options.getString('group');
+        let menuName = interaction.options.getString('name');
+        let roles = [];
+
+        let foundGuild = false;
+        let foundGroup = false;
+        groups.guilds.forEach(guild => {
+            if(Object.keys(guild)[0] == guildId){
+                foundGuild = true;
+                guild[guildId].forEach(group => {
+                    if(Object.keys(group)[0] == groupName){
+                        foundGroup = true;
+                        roles = group[groupName];
+                    }
+                })
+            }
+        })
+
+        if(!foundGuild){
+            await interaction.reply({content: "Sorry, your guild has not created any groups yet!", ephemeral: true});
+            return;
+        } else if(!foundGroup){
+            await interaction.reply({content: `Sorry, ${groupName} has not been created. Use /listgroups to see the groups that have been made.`});
+            return;
+        }
+
+        let menu = {}
+        menu[menuName] = {}
+        roles.forEach(role => { menu[menuName][role] = ""; })
+
+        let guildObject = null;
+        menus.guilds.forEach(guild => { if(Object.keys(guild) == guildId){ guildObject = guild; } })
+        if(guildObject == null){
+            guildObject = {};
+            guildObject[guildId] = []
+            menus.guilds.push(guildObject);
+        }
+
+        guildObject[guildId].push(menu);
+        fs.writeFileSync('./data/menus.json', JSON.stringify(menus, null, 2));
+
+		await interaction.reply({content: `Created menu ${menuName}. I am sending a message for each role in the group ${groupName}. Please react to each message with the desired emoji.`, ephemeral: true});
+        roles.forEach(async role => { await interaction.followUp({content: `menucreate ${menuName}: ${role}`}); })
 	},
 };
