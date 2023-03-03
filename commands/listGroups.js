@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
 const groups = require("../data/groups.json");
-const fs = require('fs');
 
 module.exports = {
 	data: new SlashCommandBuilder()
