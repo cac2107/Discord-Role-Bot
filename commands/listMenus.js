@@ -12,13 +12,14 @@ module.exports = {
             return;
         }
 
-        let replyStr = "";
-        let first = true;
+        let groupEmbed = {title: "Menus", fields: []};
+
         Object.keys(menus.guilds[guildId]).forEach(menu => {
             if(!(menu == "admin-channel")){
-                if(first){ first = false; }
-                else{ replyStr += "\n"; }
-                replyStr += `${menu}:`
+                field = {name: menu, value: ""}
+                fieldValue = ""
+
+                let first = true;
                 Object.keys(menus.guilds[guildId][menu]).forEach(async role => {
                     let emoji = menus.guilds[guildId][menu][role].emoji;
                     let desc = menus.guilds[guildId][menu][role].desc;
@@ -26,18 +27,25 @@ module.exports = {
                         await interaction.reply({content: "Sorry, not all roles have been assigned an emoji", ephemeral: true});
                         return;
                     }
-                    replyStr += `\n\t${role}: ${emoji}`;
-                    if(desc == ""){ replyStr += "\n"; }
-                    else{replyStr += `\n\t${desc}\n`}
+                    if(first){ first = false; }
+                    else { fieldValue += "\n"; }
+
+                    fieldValue += `${role}: ${emoji}`;
+
+                    if(desc == ""){ fieldValue += "\n"; }
+                    else{fieldValue += `\n\t${desc}\n`}
+
+                    field.value = fieldValue;
                 })
+                groupEmbed.fields.push(field);
             }
         })
 
-        if(replyStr == ""){
+        if(groupEmbed.fields.length == 0){
             await interaction.reply({content: "Sorry, it seems you have not created any menus yet!", ephemeral: true});
             return;
         }
 
-        await interaction.reply({content: replyStr, ephemeral: true});
+        await interaction.reply({embeds: [groupEmbed], ephemeral: true});
 	},
 };
