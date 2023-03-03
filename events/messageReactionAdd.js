@@ -1,10 +1,10 @@
 const menus = require("../data/menus.json");
 const fs = require('fs');
 
-module.exports = async(und, reaction) => {
+module.exports = async(und, reaction, user) => {
     if(reaction.partial){ try{ await reaction.fetch(); } catch (error) { console.error("Error: ", error); }}
 
-    if(!(reaction.message.author.id === client.user.id)){ return; }
+    if(!(reaction.message.author.id === client.user.id || user.id == client.user.id)){ return; }
 
     if(reaction.message.content.startsWith("menucreate")){
         const guildId = reaction.message.guild.id;
@@ -22,5 +22,7 @@ module.exports = async(und, reaction) => {
         menus.guilds[guildId][menuName][role] = emoji;
 
         fs.writeFileSync("./data/menus.json", JSON.stringify(menus, null, 2));
+    } else if(reaction.message.content.split("\n")[0].split(":")[0] == "Role Menu"){
+
     }
 }
