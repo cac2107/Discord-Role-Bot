@@ -2,11 +2,7 @@ const menus = require("../data/menus.json");
 const fs = require('fs');
 
 module.exports = async(und, reaction) => {
-    if(reaction.partial){
-        try{ await reaction.fetch(); } catch (error) { 
-            console.error("Error: ", error);
-        }
-    }
+    if(reaction.partial){ try{ await reaction.fetch(); } catch (error) { console.error("Error: ", error); }}
 
     if(!(reaction.message.author.id === client.user.id)){ return; }
 
@@ -26,9 +22,7 @@ module.exports = async(und, reaction) => {
         menus.guilds.forEach(guild => {
             if(Object.keys(guild)[0] == guildId){
                 guild[guildId].forEach(menu => {
-                    if(Object.keys(menu)[0] == menuName){
-                        menu[menuName][role] = emoji;
-                    }
+                    if(Object.keys(menu)[0] == menuName){ menu[menuName][role] = emoji; }
                 })
             }
         })
