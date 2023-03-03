@@ -39,6 +39,7 @@ module.exports = async(und, reaction, user) => {
             if(menu[role]['emoji'] == emoji){ chosenRole = role; }
         })
 
+        if(adminChannel == undefined){ return; }
         await adminChannel.send(`<@${user.id}> chose ${emoji} for the role ${chosenRole}`);
     }
 }
