@@ -5,7 +5,7 @@ const fs = require('fs');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('listgroups')
-		.setDescription('Lists all created groups for this guild.'),
+		.setDescription('Lists all created role groups for this guild.'),
 	async execute(interaction) {
         let exists = false;
         const guildId = interaction.guild.id;
