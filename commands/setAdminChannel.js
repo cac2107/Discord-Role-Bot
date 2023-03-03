@@ -20,6 +20,9 @@ module.exports = {
         }
 
         channel = channel.replace("<#", "").replace(">", "");
+
+        if(menus.guilds[guildId] == undefined){ menus.guilds[guildId] = {}; }
+
         menus.guilds[guildId]["admin-channel"] = channel;
         fs.writeFileSync("./data/menus.json", JSON.stringify(menus, null, 2));
 
