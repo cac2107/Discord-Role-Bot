@@ -34,6 +34,6 @@ module.exports = {
 
         fs.writeFileSync('./data/groups.json', JSON.stringify(groups, null, 2));
 
-		await interaction.reply(`Created group ${groupName}!`);
+		await interaction.reply({content: `Created group ${groupName}!`, ephemeral: true});
 	},
 };

@@ -40,8 +40,8 @@ module.exports = {
             }
         });
 
-        if(!foundGuild){ await interaction.reply("Sorry, your guild has not yet created any groups!") }
-        else if (!foundGroup) { await interaction.reply(`Sorry, ${name} is not a group that has been created. Use /listgroups to view created groups`); }
-        else { await interaction.reply(`Successfully added ${role} to group ${name}!`)}
+        if(!foundGuild){ await interaction.reply({content: "Sorry, your guild has not yet created any groups!", ephemeral: true}) }
+        else if (!foundGroup) { await interaction.reply({content: `Sorry, ${name} is not a group that has been created. Use /listgroups to view created groups`, ephemeral: true}); }
+        else { await interaction.reply({content: `Successfully added ${role} to group ${name}!`, ephemeral: true})}
 	},
 };

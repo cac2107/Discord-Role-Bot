@@ -23,7 +23,7 @@ module.exports = {
             }
         });
 
-        if(!exists){ await interaction.reply("Sorry, you have not created any groups yet!"); }
-        else { await interaction.reply(replyStr); }
+        if(!exists){ await interaction.reply({content: "Sorry, you have not created any groups yet!", ephemeral: true}); }
+        else { await interaction.reply({content: replyStr, ephemeral: true}); }
 	},
 };
