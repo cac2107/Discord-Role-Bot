@@ -22,27 +22,16 @@ module.exports = {
         let menuName = interaction.options.getString('name');
         let roles = [];
 
-        let foundGuild = false;
-        let foundGroup = false;
-        groups.guilds.forEach(guild => {
-            if(Object.keys(guild)[0] == guildId){
-                foundGuild = true;
-                guild[guildId].forEach(group => {
-                    if(Object.keys(group)[0] == groupName){
-                        foundGroup = true;
-                        roles = group[groupName];
-                    }
-                })
-            }
-        })
-
-        if(!foundGuild){
+        if(groups.guilds[guildId] == undefined){
             await interaction.reply({content: "Sorry, your guild has not created any groups yet!", ephemeral: true});
             return;
-        } else if(!foundGroup){
+        }
+        if(groups.guilds[guildId][groupName] == undefined){
             await interaction.reply({content: `Sorry, ${groupName} has not been created. Use /listgroups to see the groups that have been made.`});
             return;
         }
+
+        roles = groups.guilds[guildId][groupName];
 
         let menu = {}
         roles.forEach(role => { menu[role] = ""; })
