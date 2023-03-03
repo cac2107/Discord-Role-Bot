@@ -36,7 +36,7 @@ module.exports = async(und, reaction, user) => {
         let menu = menus.guilds[guildId][menuName];
         let chosenRole = "";
         Object.keys(menu).forEach(role => {
-            if(menu[role] == emoji){ chosenRole = role; }
+            if(menu[role].emoji == emoji){ chosenRole = role; }
         })
 
         await adminChannel.send(`<@${user.id}> chose ${emoji} for the role ${chosenRole}`);
