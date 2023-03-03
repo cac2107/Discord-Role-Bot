@@ -19,13 +19,9 @@ module.exports = async(und, reaction) => {
             emoji = reaction.message.guild.emojis.cache.find(em => em.name === strippedEmoji);
         }
 
-        menus.guilds.forEach(guild => {
-            if(Object.keys(guild)[0] == guildId){
-                guild[guildId].forEach(menu => {
-                    if(Object.keys(menu)[0] == menuName){ menu[menuName][role] = emoji; }
-                })
-            }
-        })
+        console.log(menus.guilds[guildId]);
+
+        menus.guilds[guildId][menuName][role] = emoji;
 
         fs.writeFileSync("./data/menus.json", JSON.stringify(menus, null, 2));
     }

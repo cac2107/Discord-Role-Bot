@@ -44,8 +44,8 @@ module.exports = {
             return;
         }
 
-        let menu = []
-        roles.forEach(role => { menu.push(role); })
+        let menu = {}
+        roles.forEach(role => { menu[role] = ""; })
 
         if(menus.guilds[guildId] == undefined){ menus.guilds[guildId] = {}; }
         menus.guilds[guildId][menuName] = menu;
