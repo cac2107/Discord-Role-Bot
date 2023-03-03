@@ -23,6 +23,9 @@ module.exports = async(und, reaction, user) => {
 
         fs.writeFileSync("./data/menus.json", JSON.stringify(menus, null, 2));
     } else if(reaction.message.content.split("\n")[0].split(":")[0] == "Role Menu"){
-
+        const guildId = reaction.message.guild.id;
+        let adminChannel = client.channels.cache.get(menus.guilds[guildId]["admin-channel"]);
+        await adminChannel.send(`<@${user.id}> chose ${reaction.emoji.name}`);
+        console.log(user.id);
     }
 }
