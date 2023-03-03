@@ -15,6 +15,11 @@ module.exports = {
                 exists = true;
                 guild[guildId].forEach(group => {
                     replyStr += Object.keys(group)[0] + "\n";
+                    let iter = 1;
+                    group[Object.keys(group)[0]].forEach(role =>{
+                        replyStr += `\t${iter}: ${role}\n`
+                        iter += 1;
+                    })
                 })
             }
         });
