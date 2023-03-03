@@ -18,7 +18,7 @@ module.exports = {
         Object.keys(groups.guilds[guildId]).forEach(group => {
             if(group != "admin-channel"){
                 if(firstMain){ firstMain = false; }
-                else { replyStr += "\n"; }
+                else { replyStr += "\n\n"; }
 
                 replyStr += `${group} -> `
 
