@@ -4,7 +4,7 @@ const fs = require('fs');
 module.exports = async(und, reaction, user) => {
     if(reaction.partial){ try{ await reaction.fetch(); } catch (error) { console.error("Error: ", error); }}
 
-    if(!(reaction.message.author.id === client.user.id || user.id == client.user.id)){ return; }
+    if(!(reaction.message.author.id === client.user.id) || user.id == client.user.id){ return; }
 
     if(reaction.message.content.startsWith("menucreate")){
         const guildId = reaction.message.guild.id;
