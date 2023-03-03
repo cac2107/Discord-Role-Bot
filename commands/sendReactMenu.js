@@ -33,8 +33,12 @@ module.exports = {
 
         let menuStr = `Role Menu: ${menuName}\nReact to Choose a Role!\n`;
         let emojis = [];
-        Object.keys(menus.guilds[guildId][menuName]).forEach(role => {
+        Object.keys(menus.guilds[guildId][menuName]).forEach(async role => {
             let emoji = menus.guilds[guildId][menuName][role];
+            if(emoji == ""){
+                await interaction.reply({content: "Sorry, not all roles have been assigned an emoji", ephemeral: true});
+                return;
+            }
             emojis.push(emoji);
             menuStr += `\n\t${role}: ${emoji}\n`;
         })
