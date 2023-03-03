@@ -44,19 +44,12 @@ module.exports = {
             return;
         }
 
-        let menu = {}
-        menu[menuName] = {}
-        roles.forEach(role => { menu[menuName][role] = ""; })
+        let menu = []
+        roles.forEach(role => { menu.push(role); })
 
-        let guildObject = null;
-        menus.guilds.forEach(guild => { if(Object.keys(guild) == guildId){ guildObject = guild; } })
-        if(guildObject == null){
-            guildObject = {};
-            guildObject[guildId] = []
-            menus.guilds.push(guildObject);
-        }
+        if(menus.guilds[guildId] == undefined){ menus.guilds[guildId] = {}; }
+        menus.guilds[guildId][menuName] = menu;
 
-        guildObject[guildId].push(menu);
         fs.writeFileSync('./data/menus.json', JSON.stringify(menus, null, 2));
 
 		await interaction.reply({content: `Created menu ${menuName}. I am sending a message for each role in the group ${groupName}. Please react to each message with the desired emoji.`, ephemeral: true});
