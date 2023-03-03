@@ -7,29 +7,29 @@ module.exports = {
 		.setDescription('Lists all created role groups for this guild.'),
 	async execute(interaction) {
         const guildId = interaction.guild.id;
-        let replyStr = "";
 
         if(groups.guilds[guildId] == undefined){
             await interaction.reply({content: "Sorry, you have not created any groups yet!", ephemeral: true});
             return;
         }
 
-        let firstMain = true;
-        Object.keys(groups.guilds[guildId]).forEach(group => {
-            if(firstMain){ firstMain = false; }
-            else { replyStr += "\n\n"; }
+        let groupEmbed = {title: "Groups", fields: []};
 
-            replyStr += `${group} -> `
+        Object.keys(groups.guilds[guildId]).forEach(group => {
+            field = {name: `${group}`, value: ""}
 
             let first = true;
+            fieldValue = ""
             groups.guilds[guildId][group].forEach(role => {
                 if(first){ first = false; }
-                else{ replyStr += ", "; }
+                else{ fieldValue += "  "; }
 
-                replyStr += role;
+                fieldValue += role;
             })
+            field.value = fieldValue;
+            groupEmbed.fields.push(field);
         })
 
-        await interaction.reply({content: replyStr, ephemeral: true});
+        await interaction.reply({embeds: [groupEmbed], ephemeral: true});
 	},
 };
