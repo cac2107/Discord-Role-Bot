@@ -16,20 +16,18 @@ module.exports = {
 
         let firstMain = true;
         Object.keys(groups.guilds[guildId]).forEach(group => {
-            if(group != "admin-channel"){
-                if(firstMain){ firstMain = false; }
-                else { replyStr += "\n\n"; }
+            if(firstMain){ firstMain = false; }
+            else { replyStr += "\n\n"; }
 
-                replyStr += `${group} -> `
+            replyStr += `${group} -> `
 
-                let first = true;
-                groups.guilds[guildId][group].forEach(role => {
-                    if(first){ first = false; }
-                    else{ replyStr += ", "; }
+            let first = true;
+            groups.guilds[guildId][group].forEach(role => {
+                if(first){ first = false; }
+                else{ replyStr += ", "; }
 
-                    replyStr += role;
-                })
-            }
+                replyStr += role;
+            })
         })
 
         await interaction.reply({content: replyStr, ephemeral: true});
