@@ -7,7 +7,7 @@ module.exports = {
 		.setName('rolemenudescription')
 		.setDescription('Adds a description to a role in a role menu.')
         .addStringOption(option => 
-            option.setName("menuname")
+            option.setName("menu_name")
                 .setDescription("Name of the menu you wish to add a description to.")
                 .setRequired(true))
         .addStringOption(option => 
@@ -21,7 +21,7 @@ module.exports = {
 	async execute(interaction) {
         const guildId = interaction.guild.id;
         const roleChoice = interaction.options.getString('role');
-        const menuName = interaction.options.getString('menuname');
+        const menuName = interaction.options.getString('menu_name');
         const description = interaction.options.getString('description');
 
         if(menus.guilds[guildId] == undefined){

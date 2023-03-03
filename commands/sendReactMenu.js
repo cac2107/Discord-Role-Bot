@@ -6,7 +6,7 @@ module.exports = {
 		.setName('sendreactmenu')
 		.setDescription('Sends the specified react menu to the specified channl.')
         .addStringOption(option =>
-            option.setName('menuname')
+            option.setName('menu_name')
                 .setDescription('Name of menu you wish to send.')
                 .setRequired(true))
         .addStringOption(option =>
@@ -15,7 +15,7 @@ module.exports = {
                 .setRequired(true)),
 	async execute(interaction) {
         const guildId = interaction.guild.id;
-        const menuName = interaction.options.getString('menuname');
+        const menuName = interaction.options.getString('menu_name');
         let channelId = interaction.options.getString('channel');
 
         if(!(channelId.startsWith("<#"))){

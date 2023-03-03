@@ -7,7 +7,7 @@ module.exports = {
 		.setName('groupadd')
 		.setDescription('Adds a role to a role group.')
         .addStringOption(option =>
-            option.setName('name')
+            option.setName('group_name')
                 .setDescription('Name of the role group you wish to add to.')
                 .setRequired(true))
         .addStringOption(option =>
@@ -16,7 +16,7 @@ module.exports = {
                 .setRequired(true)),
 	async execute(interaction) {
         let role = interaction.options.getString('role');
-        let name = interaction.options.getString('name');
+        let name = interaction.options.getString('group_name');
         let guildId = interaction.guild.id;
 
         if(!(role.startsWith("<@&"))){
