@@ -12,7 +12,7 @@ module.exports = {
             return;
         }
 
-        let menuEmbed = {title: "Menus", fields: []};
+        let menuEmbed = {color: 0x0c0599, title: "Menus", fields: []};
 
         Object.keys(menus.guilds[guildId]).forEach(menu => {
             if(!(menu == "admin-channel")){
