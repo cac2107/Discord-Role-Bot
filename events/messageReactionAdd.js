@@ -22,24 +22,22 @@ module.exports = async(und, reaction, user) => {
 
         fs.writeFileSync("./data/menus.json", JSON.stringify(menus, null, 2));
         
-    } else if(reaction.message.content.split("\n")[0].split(":")[0] == "Role Menu"){
+    } else if(reaction.message.embeds.length != 0 && reaction.message.embeds[0].data.title.startsWith("Role Menu:")){
         let menus = JSON.parse(fs.readFileSync('./data/menus.json'));
         const guildId = reaction.message.guild.id;
-        let adminChannel = client.channels.cache.get(menus.guilds[guildId]["admin-channel"]);
+        let embed = reaction.message.embeds[0].data;
         let emoji = reaction.emoji.name;
+        let adminChannel = client.channels.cache.get(menus.guilds[guildId]["admin-channel"]);
         if(emoji.length > 2){
             let emojiStripped = reaction.emoji.replace(":", "");
             emoji = reaction.message.guild.emojis.cache.find(em => em.name === emojiStripped);
         }
 
-        let menuName = reaction.message.content.split("\n")[0].split(":")[1].trim();
-        let menu = menus.guilds[guildId][menuName];
-        let chosenRole = "";
-        Object.keys(menu).forEach(role => {
-            if(menu[role]['emoji'] == emoji){ chosenRole = role; }
+        embed.fields.forEach(async field => {
+            if(field.name == emoji){
+                let role = field.value.split("\n")[0];
+                await adminChannel.send(`<@${user.id}> chose ${emoji} for the role ${role}`);
+            }
         })
-
-        if(adminChannel == undefined){ return; }
-        await adminChannel.send(`<@${user.id}> chose ${emoji} for the role ${chosenRole}`);
     }
 }

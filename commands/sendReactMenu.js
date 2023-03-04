@@ -32,8 +32,8 @@ module.exports = {
             return;
         }
 
-        let menuStr = `Role Menu: ${menuName}\nReact to Choose a Role!\n`;
-        let emojis = [];
+        let menuEmbed = {title: `Role Menu: ${menuName}`, description: "React to Choose a Role!", fields: []};
+        let emojis = []
         Object.keys(menus.guilds[guildId][menuName]).forEach(async role => {
             let emoji = menus.guilds[guildId][menuName][role]['emoji'];
             let desc = menus.guilds[guildId][menuName][role].desc;
@@ -41,15 +41,30 @@ module.exports = {
                 await interaction.reply({content: "Sorry, not all roles have been assigned an emoji", ephemeral: true});
                 return;
             }
+            let field = {name: emoji, value: role + "\n"};
             emojis.push(emoji);
-            menuStr += `\n\t${role}: ${emoji}`;
-            if(desc == ""){ menuStr += "\n"; }
-            else{menuStr += `\n\t${desc}\n`}
+            if(!(desc == "")){ field['value'] += desc; }
+            menuEmbed.fields.push(field);
         })
+
+        // let menuStr = `Role Menu: ${menuName}\nReact to Choose a Role!\n`;
+        // let emojis = [];
+        // Object.keys(menus.guilds[guildId][menuName]).forEach(async role => {
+        //     let emoji = menus.guilds[guildId][menuName][role]['emoji'];
+        //     let desc = menus.guilds[guildId][menuName][role].desc;
+        //     if(emoji == ""){
+        //         await interaction.reply({content: "Sorry, not all roles have been assigned an emoji", ephemeral: true});
+        //         return;
+        //     }
+        //     emojis.push(emoji);
+        //     menuStr += `\n\t${role}: ${emoji}`;
+        //     if(desc == ""){ menuStr += "\n"; }
+        //     else{menuStr += `\n\t${desc}\n`}
+        // })
 
         channelId = channelId.replace("<#", "").replace(">", "");
         const channel = client.channels.cache.get(channelId);
-        let message = await channel.send(menuStr);
+        let message = await channel.send({embeds: [menuEmbed]});
 
         emojis.forEach(async emoji => { await message.react(emoji); })
 
