@@ -36,7 +36,8 @@ module.exports = async(und, reaction, user) => {
         embed.fields.forEach(async field => {
             if(field.name == emoji){
                 let role = field.value.split("\n")[0];
-                await adminChannel.send(`<@${user.id}> chose ${emoji} for the role ${role}`);
+                let msgEmbed = {color: 0x990505, title: "Role Choice", description: `<@${user.id}> chose ${emoji} for the role ${role}`};
+                await adminChannel.send({embeds: [msgEmbed]});
             }
         })
     }
