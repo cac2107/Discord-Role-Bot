@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, ChannelType } = require('discord.js');
 const fs = require('fs');
 
 module.exports = {
@@ -9,20 +9,17 @@ module.exports = {
             option.setName('menu_name')
                 .setDescription('Name of menu you wish to send.')
                 .setRequired(true))
-        .addStringOption(option =>
+        .addChannelOption(option =>
             option.setName('channel')
-                .setDescription('#channel you wish to send the menu to. Use #channel format.')
+                .setDescription('channel you wish to send the menu to')
+                .addChannelTypes(ChannelType.GuildText)
                 .setRequired(true)),
 	async execute(interaction) {
         const guildId = interaction.guild.id;
         const menuName = interaction.options.getString('menu_name');
-        let channelId = interaction.options.getString('channel');
+        const channel = interaction.options.getChannel('channel');
         let menus = JSON.parse(fs.readFileSync('./data/menus.json'));
 
-        if(!(channelId.startsWith("<#"))){
-            await interaction.reply({content: "Sorry, that is not a valid channel. Please use #channel format", ephemeral: true});
-            return;
-        }
         if(menus.guilds[guildId] == undefined){
             await interaction.reply({content: "Sorry, your guild has not created any menus yet. Please use the /menucreate command.", ephemeral: true});
             return;
@@ -47,8 +44,6 @@ module.exports = {
             menuEmbed.fields.push(field);
         })
 
-        channelId = channelId.replace("<#", "").replace(">", "");
-        const channel = client.channels.cache.get(channelId);
         let message = await channel.send({embeds: [menuEmbed]});
 
         emojis.forEach(async emoji => { await message.react(emoji); })
