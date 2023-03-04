@@ -12,7 +12,7 @@ module.exports = {
             return;
         }
 
-        let groupEmbed = {title: "Menus", fields: []};
+        let menuEmbed = {title: "Menus", fields: []};
 
         Object.keys(menus.guilds[guildId]).forEach(menu => {
             if(!(menu == "admin-channel")){
@@ -37,15 +37,15 @@ module.exports = {
 
                     field.value = fieldValue;
                 })
-                groupEmbed.fields.push(field);
+                menuEmbed.fields.push(field);
             }
         })
 
-        if(groupEmbed.fields.length == 0){
+        if(menuEmbed.fields.length == 0){
             await interaction.reply({content: "Sorry, it seems you have not created any menus yet!", ephemeral: true});
             return;
         }
 
-        await interaction.reply({embeds: [groupEmbed], ephemeral: true});
+        await interaction.reply({embeds: [menuEmbed], ephemeral: true});
 	},
 };
