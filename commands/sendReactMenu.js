@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('discord.js');
-const menus = require("../data/menus.json");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -17,6 +16,7 @@ module.exports = {
         const guildId = interaction.guild.id;
         const menuName = interaction.options.getString('menu_name');
         let channelId = interaction.options.getString('channel');
+        let menus = JSON.parse(fs.readFileSync('./data/menus.json'));
 
         if(!(channelId.startsWith("<#"))){
             await interaction.reply({content: "Sorry, that is not a valid channel. Please use #channel format", ephemeral: true});
