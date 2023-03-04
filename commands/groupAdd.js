@@ -10,19 +10,14 @@ module.exports = {
             option.setName('group_name')
                 .setDescription('Name of the role group you wish to add to.')
                 .setRequired(true))
-        .addStringOption(option =>
+        .addRoleOption(option =>
             option.setName('role')
-                .setDescription('Role that you wish to add to the group. Must be in @Role format.')
+                .setDescription('Role that you wish to add to the group')
                 .setRequired(true)),
 	async execute(interaction) {
-        let role = interaction.options.getString('role');
+        let role = `<@&${interaction.options.getRole('role').id}>`;
         let name = interaction.options.getString('group_name');
         let guildId = interaction.guild.id;
-
-        if(!(role.startsWith("<@&"))){
-            await interaction.reply("Sorry, that is not a role. Please use @Role format.");
-            return;
-        }
 
         if(groups.guilds[guildId] == undefined){
             await interaction.reply({content: "Sorry, your guild has not yet created any groups!", ephemeral: true});
