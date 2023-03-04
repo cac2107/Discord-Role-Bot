@@ -32,7 +32,7 @@ module.exports = {
             return;
         }
 
-        let menuEmbed = {title: `Role Menu: ${menuName}`, description: "React to Choose a Role!", fields: []};
+        let menuEmbed = {color: 0x05f2e6, title: `Role Menu: ${menuName}`, description: "React to Choose a Role!", fields: []};
         let emojis = []
         Object.keys(menus.guilds[guildId][menuName]).forEach(async role => {
             let emoji = menus.guilds[guildId][menuName][role]['emoji'];
@@ -46,21 +46,6 @@ module.exports = {
             if(!(desc == "")){ field['value'] += desc; }
             menuEmbed.fields.push(field);
         })
-
-        // let menuStr = `Role Menu: ${menuName}\nReact to Choose a Role!\n`;
-        // let emojis = [];
-        // Object.keys(menus.guilds[guildId][menuName]).forEach(async role => {
-        //     let emoji = menus.guilds[guildId][menuName][role]['emoji'];
-        //     let desc = menus.guilds[guildId][menuName][role].desc;
-        //     if(emoji == ""){
-        //         await interaction.reply({content: "Sorry, not all roles have been assigned an emoji", ephemeral: true});
-        //         return;
-        //     }
-        //     emojis.push(emoji);
-        //     menuStr += `\n\t${role}: ${emoji}`;
-        //     if(desc == ""){ menuStr += "\n"; }
-        //     else{menuStr += `\n\t${desc}\n`}
-        // })
 
         channelId = channelId.replace("<#", "").replace(">", "");
         const channel = client.channels.cache.get(channelId);
