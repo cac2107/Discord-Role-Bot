@@ -13,7 +13,7 @@ module.exports = {
             return;
         }
 
-        let groupEmbed = {title: "Groups", fields: []};
+        let groupEmbed = {color: 0x0ecc2b, title: "Groups", fields: []};
 
         Object.keys(groups.guilds[guildId]).forEach(group => {
             field = {name: `${group}`, value: ""}
