@@ -23,7 +23,7 @@ module.exports = async(und, reaction, user) => {
         fs.writeFileSync("./data/menus.json", JSON.stringify(menus, null, 2));
         
     } else if(reaction.message.content.split("\n")[0].split(":")[0] == "Role Menu"){
-        const menus = require("../data/menus.json");
+        let menus = JSON.parse(fs.readFileSync('./data/menus.json'));
         const guildId = reaction.message.guild.id;
         let adminChannel = client.channels.cache.get(menus.guilds[guildId]["admin-channel"]);
         let emoji = reaction.emoji.name;
