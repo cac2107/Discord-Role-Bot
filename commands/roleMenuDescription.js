@@ -33,7 +33,7 @@ module.exports = {
             return;
         }
         if(menus.guilds[guildId][menuName][roleChoice] == undefined){
-            await interaction.reply({content: `Sorry, that role is not a part of ${menuname}`, ephemeral: true});
+            await interaction.reply({content: `Sorry, that role is not a part of ${menuName}`, ephemeral: true});
             return;
         }
 
